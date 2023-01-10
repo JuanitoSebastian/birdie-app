@@ -4,7 +4,8 @@ import DroneService from './services/drones';
 const App = () => {
 
   useEffect(() => {
-    DroneService.getDrones();
+    const drones = DroneService.getViolatingDrones();
+    console.log(drones);
   }, []);
 
   return (

@@ -1,4 +1,4 @@
-import { BaseDrone } from "./interfaces";
+import { BaseDroneSighting } from "./interfaces";
 
 const isArray = (array: unknown): array is [] => {
   return Array.isArray(array);
@@ -47,16 +47,17 @@ export const parseNumber = (numberToParse: unknown): number => {
   return numberToParse;
 };
 
-export const parseBaseDrone = (rawDrone: unknown): BaseDrone => {
+export const parseDroneSighting = (rawDrone: unknown, timestamp: string): BaseDroneSighting => {
   if (!rawDrone) { throw new Error(''); }
 
-  const serialNumber = parseString((rawDrone as BaseDrone).serialNumber);
-  const positionX = parseNumber((rawDrone as BaseDrone).positionX);
-  const positionY = parseNumber((rawDrone as BaseDrone).positionY);
-  
+  const serialNumber = parseString((rawDrone as BaseDroneSighting).serialNumber);
+  const positionX = parseNumber((rawDrone as BaseDroneSighting).positionX);
+  const positionY = parseNumber((rawDrone as BaseDroneSighting).positionY);
+
   return {
     serialNumber,
     positionX,
-    positionY
+    positionY,
+    timestamp
   };
 };
