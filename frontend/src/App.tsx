@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useInterval } from "./hooks/useInterval";
 import DroneService from './services/drones';
 import { Drone } from "./utils/interfaces";
+import './index.css';
 
 const App = () => {
   const [drones, setDrones] = useState<Drone[] | undefined> ([]);
@@ -13,7 +14,7 @@ const App = () => {
   }, 2000);
 
   return (
-    <div className="App">
+    <div className="text-3xl">
       <p>Hey!</p>
     </div>
   );
