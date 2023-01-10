@@ -16,6 +16,7 @@ const App = () => {
   return (
     <div className="text-3xl">
       <p>Hey!</p>
+      <button className="btn">Hello daisyUI</button>
     </div>
   );
 }
