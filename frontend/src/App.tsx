@@ -1,12 +1,12 @@
-import { useState } from "react";
-import { useInterval } from "./hooks/useInterval";
+import { useState } from 'react';
+import { useInterval } from './hooks/useInterval';
 import DroneService from './services/drones';
-import { Drone } from "./utils/interfaces";
+import { Drone } from './utils/interfaces';
 import './index.css';
-import DronesTable from "./components/DronesTable";
+import DronesTable from './components/DronesTable';
 
 const App = () => {
-  const [drones, setDrones] = useState<Drone[] | undefined> ([]);
+  const [drones, setDrones] = useState<Drone[] | undefined>([]);
 
   useInterval(async () => {
     const fetchedDrones = await DroneService.getViolatingDrones(drones);
@@ -15,10 +15,11 @@ const App = () => {
   }, 2000);
 
   return (
-    <div className="container mx-auto">
-      <p>Hey!</p>
-      <button className="btn">Hello daisyUI</button>
-      <DronesTable drones={drones} />
+    <div className='container mx-auto'>
+      <div className='flex flex-col gap-4 justify-start'>
+        <h1 className='text-2xl font-bold'>NFZ Violations</h1>
+        <DronesTable drones={drones} />
+      </div>
     </div>
   );
 }

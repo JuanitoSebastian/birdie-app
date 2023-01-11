@@ -1,4 +1,4 @@
-import { BaseDroneSighting } from "./interfaces";
+import { BaseDroneSighting } from './interfaces';
 
 const isArray = (array: unknown): array is [] => {
   return Array.isArray(array);

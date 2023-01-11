@@ -1,5 +1,5 @@
-import React from "react";
-import { Drone } from "../utils/interfaces";
+import { Drone } from '../utils/interfaces';
+import DroneTableRow from './DronesTableRow';
 
 interface DronesTableProps {
   drones: Drone[] | undefined;
@@ -11,19 +11,19 @@ const DronesTable = (props: DronesTableProps) => {
 
   return (
     <div className="overflow-x-auto">
-      <table className="table w-full">
+      <table className="table table-compact w-full">
         <thead>
           <tr>
             <th>Serial Number</th>
-            <th>Closest Distance</th>
+            <th>Owner</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Closest Distance (m)</th>
           </tr>
         </thead>
         <tbody>
           {props.drones.map((drone) => (
-            <tr key={drone.serialNumber}>
-              <td>{drone.serialNumber}</td>
-              <td>{drone.closestDistance}</td>
-            </tr>
+            <DroneTableRow key={drone.serialNumber} drone={drone} />
           ))}
         </tbody>
       </table>

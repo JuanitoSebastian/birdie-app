@@ -1,9 +1,9 @@
-import axios from "axios";
+import axios from 'axios';
 import CoordinatesHelper from '../utils/coordinates';
-import { XMLParser } from "fast-xml-parser";
-import { BASE_URL, NEST_COORDINATES_X, NEST_COORDINATES_Y, NFZ_RADIUS_METERS } from "../utils/constants";
-import { Drone, DroneSighting } from "../utils/interfaces";
-import { parseDate, parseDroneSighting, parseUnkownArray } from "../utils/validation";
+import { XMLParser } from 'fast-xml-parser';
+import { BASE_URL, NEST_COORDINATES_X, NEST_COORDINATES_Y, NFZ_RADIUS_METERS } from '../utils/constants';
+import { Drone, DroneSighting } from '../utils/interfaces';
+import { parseDate, parseDroneSighting, parseUnkownArray } from '../utils/validation';
 
 const dronesBaseUrl = `${BASE_URL}/drones`;
 const parser = new XMLParser({ ignoreAttributes: false, attributeNamePrefix: 'attribute_' });
