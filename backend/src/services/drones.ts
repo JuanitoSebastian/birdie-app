@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 import { XMLParser } from 'fast-xml-parser';
 import { setIntervalAsync, clearIntervalAsync, SetIntervalAsyncTimer } from 'set-interval-async';
 
@@ -17,6 +17,7 @@ let drones: DroneDictionary = {};
  * Starts polling the Birdnest API for drone sightings
  */
 const startPolling = () => {
+  console.log('Start polling');
   timer = setIntervalAsync(async () => {
     await updateDrones();
   }, POLLING_INTERVAL_MILLISECONDS);
@@ -25,8 +26,9 @@ const startPolling = () => {
 /**
  * Stops polling the Birdnest API for drone sightings
  */
-const stopPolling = async () => {
-  await clearIntervalAsync(timer);
+const stopPolling = () => {
+  console.log('Stop polling');
+  void clearIntervalAsync(timer);
 };
 
 /**
@@ -42,11 +44,21 @@ const getDrones = (): Drone[] => {
  * Updates drones dictionary with latest sightings from Birdnest API and old sightings.
  */
 const updateDrones = async () => {
-  const apiReponse = await getDroneSightingsFromApi();
-  const sightingsFromApi = birdnestApiResponseToBaseDroneSightings(apiReponse);
-  const violations = sightingsFromApi.filter(sighting => sighting.distanceToNestMeters < NFZ_RADIUS_METERS);
-  drones = updateDronesWithViolations(drones, violations);
-  drones = removeDronesWithSightingsOlderThan(drones, NFZ_VIOLATION_TIMELIMT_SECONDS);
+  try {
+    const apiReponse = await getDroneSightingsFromApi();
+    const sightingsFromApi = birdnestApiResponseToBaseDroneSightings(apiReponse);
+    const violations = sightingsFromApi.filter(sighting => sighting.distanceToNestMeters < NFZ_RADIUS_METERS);
+    drones = updateDronesWithViolations(drones, violations);
+    drones = removeDronesWithSightingsOlderThan(drones, NFZ_VIOLATION_TIMELIMT_SECONDS);
+  } catch (error) {
+    if (error instanceof AxiosError && error.response && error.response.status === 429) {
+      console.log('HTTP 429 - Pause polling for 5 seconds');
+      stopPolling();
+      setTimeout(() => { 
+        startPolling();
+      }, 5000);
+    }
+  }
 };
 
 /**
@@ -72,9 +84,9 @@ const updateDronesWithViolations = (drones: DroneDictionary, sightings: BaseDron
     }
 
     const newDrone: Drone = {
-        serialNumber: serialNumber,
-        latestViolation: baseDroneSighting as DroneSighting,
-        closestViolation: baseDroneSighting as DroneSighting
+      serialNumber: serialNumber,
+      latestViolation: baseDroneSighting as DroneSighting,
+      closestViolation: baseDroneSighting as DroneSighting
     };
     drones[serialNumber] = newDrone;
   }
