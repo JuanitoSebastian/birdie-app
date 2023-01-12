@@ -2,6 +2,8 @@ import express, { NextFunction, Request, RequestHandler, Response } from 'expres
 import cors from 'cors';
 import axios from 'axios';
 
+import DroneService from './services/drones';
+
 const app = express();
 
 app.use(cors());
@@ -12,9 +14,8 @@ const baseUrl = 'https://assignments.reaktor.com/birdnest';
 /**
  * Returns drones within 500m^2 of nest
  */
-app.get('/api/drones', (async (_request: Request, response: Response, _next: NextFunction) => {
-  const dronesRequest = await axios.get(`${baseUrl}/drones`);
-  response.send(dronesRequest.data);
+app.get('/api/drones', ((_request: Request, response: Response, _next: NextFunction) => {
+  response.send(DroneService.getDrones());
 }) as RequestHandler);
 
 /**
