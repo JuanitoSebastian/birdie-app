@@ -6,13 +6,19 @@ interface DronesTableRowProps {
 
 const DroneTableRow = (props: DronesTableRowProps) => {
 
+  const closestDistanceToNest = Math.round(props.drone.closestViolation.distanceToNestMeters * 100) / 100;
+
   return (
     <tr>
       <td>{props.drone.serialNumber}</td>
-      <td>John Cena</td>
-      <td>example@gmail.com</td>
-      <td>0453283945</td>
-      <td>{props.drone.closestViolation.distanceToNestMeters}</td>
+      <td>
+          <div className='flex flex-col items-start justify-center text-sm'>
+            <p className='font-bold'>John Cena</p>
+            <p>example@gmail.com</p>
+            <p>0453283945</p>
+          </div>
+      </td>
+      <td>{closestDistanceToNest}</td>
     </tr>
   );
 };

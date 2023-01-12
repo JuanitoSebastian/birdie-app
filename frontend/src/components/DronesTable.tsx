@@ -11,13 +11,11 @@ const DronesTable = (props: DronesTableProps) => {
 
   return (
     <div className="overflow-x-auto">
-      <table className="table table-compact w-full">
+      <table className="table w-full">
         <thead>
           <tr>
             <th>Serial Number</th>
             <th>Owner</th>
-            <th>Email</th>
-            <th>Phone</th>
             <th>Closest Distance (m)</th>
           </tr>
         </thead>
