@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useInterval } from './hooks/useInterval';
 import DroneService from './services/drones';
 import { Drone } from './utils/interfaces';
@@ -6,13 +6,20 @@ import './index.css';
 import DronesTable from './components/DronesTable';
 
 const App = () => {
-  const [drones, setDrones] = useState<Drone[] | undefined>([]);
+  const [drones, setDrones] = useState<Drone[]>([]);
 
   useInterval(async () => {
-    const fetchedDrones = await DroneService.getViolatingDrones(drones);
+    const fetchedDrones = await DroneService.getViolatingDrones();
     setDrones(fetchedDrones);
-    console.log(drones);
   }, 2000);
+
+  useEffect(() => {
+    const fetchDronesFromApi = async () => {
+      const fetchedDrones = await DroneService.getViolatingDrones();
+      setDrones(fetchedDrones);
+    };
+    fetchDronesFromApi();
+  }, []);
 
   return (
     <div className='container mx-auto'>

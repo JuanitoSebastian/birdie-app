@@ -1,4 +1,4 @@
-import { BaseDroneSighting } from './interfaces';
+import { Drone, DroneSighting } from './interfaces';
 
 const isArray = (array: unknown): array is [] => {
   return Array.isArray(array);
@@ -47,17 +47,38 @@ export const parseNumber = (numberToParse: unknown): number => {
   return numberToParse;
 };
 
-export const parseDroneSighting = (rawDrone: unknown, timestamp: string): BaseDroneSighting => {
-  if (!rawDrone) { throw new Error(''); }
+export const parseDrone = (drone: unknown): Drone => {
+  if (!drone || !isDrone(drone)) {
+    throw new Error('Incorrect type, not a drone');
+  }
 
-  const serialNumber = parseString((rawDrone as BaseDroneSighting).serialNumber);
-  const positionX = parseNumber((rawDrone as BaseDroneSighting).positionX);
-  const positionY = parseNumber((rawDrone as BaseDroneSighting).positionY);
+  return drone;
+};
 
-  return {
-    serialNumber,
-    positionX,
-    positionY,
-    timestamp
-  };
+export const parseDroneArray = (droneArray: unknown): Drone[] => {
+  if (!droneArray || !isArray(droneArray)) {
+    throw new Error('Incorrect type, not a array of drones');
+  }
+
+  droneArray.forEach((drone) => {
+    if (!drone || !isDrone(drone)) {
+      throw new Error('Incorrect type, not a array of drones');
+    }
+  });
+
+  return droneArray;
+}
+
+const isDroneSighting = (droneSighting: unknown): droneSighting is DroneSighting => {
+  return typeof droneSighting === 'object' && droneSighting !== null &&
+  'positionX' in droneSighting && typeof droneSighting.positionX === 'number' &&
+  'positionY' in droneSighting && typeof droneSighting.positionY === 'number' &&
+  'timestamp' in droneSighting && typeof droneSighting.timestamp === 'string' && isDate(droneSighting.timestamp) &&
+  'distanceToNestMeters' in droneSighting && typeof droneSighting.distanceToNestMeters === 'number';
+};
+
+const isDrone = (drone: unknown): drone is Drone => {
+  return typeof drone === 'object' && drone !== null &&
+  'latestViolation' in drone && isDroneSighting(drone.latestViolation) &&
+  'closestViolation' in drone && isDroneSighting(drone.closestViolation);
 };

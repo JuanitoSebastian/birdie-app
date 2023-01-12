@@ -1,17 +1,13 @@
 
 export interface Drone {
   serialNumber: string;
-  closestDistance: number;
-  violations: DroneSighting[];
+  latestViolation: DroneSighting;
+  closestViolation: DroneSighting;
 }
 
-export interface BaseDroneSighting {
-  serialNumber: string;
-  positionY: number;
+export interface DroneSighting {
   positionX: number;
+  positionY: number;
   timestamp: string;
-}
-
-export interface DroneSighting extends BaseDroneSighting {
-  distanceToNest: number;
+  distanceToNestMeters: number;
 }
