@@ -1,4 +1,4 @@
-import { Drone, DroneSighting } from './interfaces';
+import { Drone, DroneSighting, Pilot } from './interfaces';
 
 const isArray = (array: unknown): array is [] => {
   return Array.isArray(array);
@@ -81,4 +81,21 @@ const isDrone = (drone: unknown): drone is Drone => {
   return typeof drone === 'object' && drone !== null &&
   'latestViolation' in drone && isDroneSighting(drone.latestViolation) &&
   'closestViolation' in drone && isDroneSighting(drone.closestViolation);
+};
+
+const isPilot = (pilot: unknown): pilot is Pilot => {
+  return typeof pilot === 'object' && pilot !== null &&
+  'pilotId' in pilot && typeof pilot.pilotId === 'string' &&
+  'firstName' in pilot && typeof pilot.firstName === 'string' &&
+  'lastName' in pilot && typeof pilot.lastName === 'string' &&
+  'phoneNumber' in pilot && typeof pilot.phoneNumber === 'string' &&
+  'email' in pilot && typeof pilot.email == 'string';
+};
+
+export const parsePilot = (pilot: unknown): Pilot => {
+  if (!pilot || !isPilot(pilot)) {
+    throw new Error('Incorrect type, not a Pilot');
+  }
+
+  return pilot;
 };
