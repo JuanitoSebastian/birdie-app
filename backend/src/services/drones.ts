@@ -55,7 +55,7 @@ const updateDrones = async () => {
     if (error instanceof AxiosError && error.response && error.response.status === 429) {
       console.log('HTTP 429 - Pause polling for 5 seconds');
       stopPolling();
-      setTimeout(() => { 
+      setTimeout(() => {
         startPolling();
       }, 5000);
     }
@@ -70,24 +70,28 @@ const updateDrones = async () => {
  */
 const updateDronesWithViolations = (drones: DroneDictionary, sightings: BaseDroneSighting[]): DroneDictionary => {
   for (const baseDroneSighting of sightings) {
-    if (!baseDroneSighting.serialNumber) { continue; }
     const serialNumber = baseDroneSighting.serialNumber;
-    delete baseDroneSighting.serialNumber;
+    const convertedToDroneSighting: DroneSighting = {
+      positionX: baseDroneSighting.positionX,
+      positionY: baseDroneSighting.positionY,
+      distanceToNestMeters: baseDroneSighting.distanceToNestMeters,
+      timestamp: baseDroneSighting.timestamp
+    };
 
     const drone = drones[serialNumber];
     if (drone) {
-      drone.latestViolation = baseDroneSighting as DroneSighting;
-      drone.closestViolation = drone.closestViolation.distanceToNestMeters < baseDroneSighting.distanceToNestMeters
+      drone.latestViolation = convertedToDroneSighting;
+      drone.closestViolation = drone.closestViolation.distanceToNestMeters < convertedToDroneSighting.distanceToNestMeters
         ? drone.closestViolation
-        : baseDroneSighting as DroneSighting;
+        : convertedToDroneSighting;
       drones[drone.serialNumber] = drone;
       continue;
     }
 
     const newDrone: Drone = {
       serialNumber: serialNumber,
-      latestViolation: baseDroneSighting as DroneSighting,
-      closestViolation: baseDroneSighting as DroneSighting
+      latestViolation: convertedToDroneSighting,
+      closestViolation: convertedToDroneSighting
     };
     drones[serialNumber] = newDrone;
   }
@@ -151,4 +155,9 @@ export default {
   startPolling,
   stopPolling,
   getDrones
+};
+
+export const exportForTesting = {
+  updateDronesWithViolations,
+  removeDronesWithSightingsOlderThan
 };

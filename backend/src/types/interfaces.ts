@@ -5,7 +5,7 @@ export interface Drone {
 }
 
 export interface BaseDroneSighting {
-  serialNumber?: string;
+  serialNumber: string;
   positionY: number;
   positionX: number;
   timestamp: string;
