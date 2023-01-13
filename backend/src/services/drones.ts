@@ -3,8 +3,8 @@ import { XMLParser } from 'fast-xml-parser';
 import { setIntervalAsync, clearIntervalAsync, SetIntervalAsyncTimer } from 'set-interval-async';
 
 import CoordinatesHelper from '../utils/coordinates';
-import { BaseDroneSighting, BirdnestApiDronesResponse, Drone, DroneDictionary, DroneSighting } from '../utils/interfaces';
-import { parseBirdnestApiDronesResponse, parseString } from '../utils/validation';
+import { BaseDroneSighting, BirdnestApiDronesResponse, Drone, DroneDictionary, DroneSighting } from '../types/interfaces';
+import { parseBirdnestApiDronesResponse, parseString } from '../types/validation';
 import { NEST_COORDINATES_X, NEST_COORDINATES_Y, NFZ_RADIUS_METERS, NFZ_VIOLATION_TIMELIMT_SECONDS, POLLING_INTERVAL_MILLISECONDS } from '../utils/constants';
 import sanitizedConfig from '../utils/config';
 
