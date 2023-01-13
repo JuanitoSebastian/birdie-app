@@ -5,11 +5,12 @@ import { setIntervalAsync, clearIntervalAsync, SetIntervalAsyncTimer } from 'set
 import CoordinatesHelper from '../utils/coordinates';
 import { BaseDroneSighting, BirdnestApiDronesResponse, Drone, DroneDictionary, DroneSighting } from '../utils/interfaces';
 import { parseBirdnestApiDronesResponse, parseString } from '../utils/validation';
-import { BIRDNEST_API_BASE_URL, NEST_COORDINATES_X, NEST_COORDINATES_Y, NFZ_RADIUS_METERS, NFZ_VIOLATION_TIMELIMT_SECONDS, POLLING_INTERVAL_MILLISECONDS } from '../utils/constants';
+import { NEST_COORDINATES_X, NEST_COORDINATES_Y, NFZ_RADIUS_METERS, NFZ_VIOLATION_TIMELIMT_SECONDS, POLLING_INTERVAL_MILLISECONDS } from '../utils/constants';
+import sanitizedConfig from '../utils/config';
 
 let timer: SetIntervalAsyncTimer<unknown[]>;
 const parser = new XMLParser({ ignoreAttributes: false, attributeNamePrefix: 'attribute_' });
-const dronesBaseUrl = `${BIRDNEST_API_BASE_URL}/drones`;
+const dronesBaseUrl = `${sanitizedConfig.BIRDNEST_API_URL}/drones`;
 
 let drones: DroneDictionary = {};
 
