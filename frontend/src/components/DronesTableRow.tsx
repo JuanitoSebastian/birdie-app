@@ -9,21 +9,33 @@ interface DronesTableRowProps {
 const DroneTableRow = (props: DronesTableRowProps) => {
 
   const [pilot, setPilot] = useState<Pilot|undefined>(undefined);
+  const [pilotLoading, setPilotLoading] = useState<boolean>(true);
   const closestDistanceToNest = Math.round(props.drone.closestViolation.distanceToNestMeters * 100) / 100;
 
   useEffect(() => {
     const fetchPilot = async () => {
       const pilot = await PilotsService.getPilotOfDrone(props.drone.serialNumber);
       setPilot(pilot);
+      setPilotLoading(false);
     };
 
     fetchPilot();
   }, [props]);
 
+  if (pilotLoading) return (
+    <tr>
+      <td>
+          <div className='flex flex-col items-start justify-center text-sm'>
+          </div>
+      </td>
+      <td>{props.drone.serialNumber}</td>
+      <td>{closestDistanceToNest}</td>
+    </tr>
+  );
+
   return pilot
   ? (
     <tr>
-      <td>{props.drone.serialNumber}</td>
       <td>
           <div className='flex flex-col items-start justify-center text-sm'>
             <p className='font-bold'>{pilot.firstName} {pilot.lastName}</p>
@@ -31,19 +43,18 @@ const DroneTableRow = (props: DronesTableRowProps) => {
             <p>{pilot.phoneNumber}</p>
           </div>
       </td>
+      <td>{props.drone.serialNumber}</td>
       <td>{closestDistanceToNest}</td>
     </tr>
   )
   : (
     <tr>
-      <td>{props.drone.serialNumber}</td>
       <td>
           <div className='flex flex-col items-start justify-center text-sm'>
-            <p className='font-bold'>John Cena</p>
-            <p>example@gmail.com</p>
-            <p>0453283945</p>
+            <p className='font-bold'>Unkown pilot</p>
           </div>
       </td>
+      <td>{props.drone.serialNumber}</td>
       <td>{closestDistanceToNest}</td>
     </tr>
   );

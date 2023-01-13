@@ -14,8 +14,8 @@ const DronesTable = (props: DronesTableProps) => {
       <table className="table w-full">
         <thead>
           <tr>
+            <th>Pilot</th>
             <th>Serial Number</th>
-            <th>Owner</th>
             <th>Closest Distance (m)</th>
           </tr>
         </thead>
