@@ -14,14 +14,14 @@ const baseUrl = 'https://assignments.reaktor.com/birdnest';
 /**
  * Returns drones within 500m^2 of nest
  */
-app.get('/api/drones', ((_request: Request, response: Response, _next: NextFunction) => {
+app.get('/drones', ((_request: Request, response: Response, _next: NextFunction) => {
   response.send(DroneService.getDrones());
 }) as RequestHandler);
 
 /**
  * Returns pilot by given serial number. If serial number is invalid, 404 is sent.
  */
-app.get('/api/pilots/:serialNumber', (async (request: Request, response: Response, next: NextFunction) => {
+app.get('/pilots/:serialNumber', (async (request: Request, response: Response, next: NextFunction) => {
   const serialNumber = request.params.serialNumber;
   try {
     const dronesRequest = await axios.get(`${baseUrl}/pilots/${serialNumber}`);
