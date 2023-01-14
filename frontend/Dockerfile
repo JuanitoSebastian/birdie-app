@@ -4,6 +4,8 @@ WORKDIR /usr/src/app
 
 COPY . .
 
+ENV REACT_APP_API_URL=/api
+
 RUN npm ci
 
 RUN npm run build
