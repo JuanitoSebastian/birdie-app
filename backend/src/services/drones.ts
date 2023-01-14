@@ -34,10 +34,19 @@ const stopPolling = () => {
 
 /**
  * Returns the Drones that have violated NFZ during the set timelimit (set in constants.ts).
+ * Sorts list of drones from closest violation to furthest.
  * @returns A list of Drones
  */
 const getDrones = (): Drone[] => {
   const dronesArray = Object.values(drones);
+  dronesArray.sort((first: Drone, second: Drone) => {
+    const firstClosestViolation = first.closestViolation.distanceToNestMeters;
+    const secondClosestViolation = second.closestViolation.distanceToNestMeters;
+    if (firstClosestViolation === secondClosestViolation) return 0;
+    return firstClosestViolation < secondClosestViolation
+    ? -1
+    : 1;
+  });
   return dronesArray;
 };
 
