@@ -1,9 +1,9 @@
 import axios, { AxiosResponse } from 'axios';
-import { BASE_URL } from '../utils/constants';
+import sanitizedConfig from '../utils/config';
 import { Drone } from '../utils/interfaces';
 import { parseDroneArray } from '../utils/validation';
 
-const dronesApiUrl = `${BASE_URL}/drones`;
+const dronesApiUrl = `${sanitizedConfig.REACT_APP_API_URL}/drones`;
 
 /**
  * Returns a list of drones which violated the NFZ during the last 10 minutes

@@ -1,9 +1,9 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
-import { BASE_URL } from '../utils/constants';
+import sanitizedConfig from '../utils/config';
 import { Pilot } from '../utils/interfaces';
 import { parsePilot } from '../utils/validation';
 
-const pilotsApiUrl = `${BASE_URL}/pilots`;
+const pilotsApiUrl = `${sanitizedConfig.REACT_APP_API_URL}/pilots`;
 
 const getPilotOfDrone = async (droneSerialNumber: string): Promise<Pilot | undefined> => {
   try {
