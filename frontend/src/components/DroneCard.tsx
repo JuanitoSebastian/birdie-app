@@ -7,6 +7,11 @@ interface DroneCardProps {
   drone: Drone;
 }
 
+/**
+ * A card displaying the name, contact details and closest NFZ violation made by pilot. The pilot is fetched
+ * inside the component using the PilotService.
+ * @param props DroneCardProps
+ */
 const DroneCard = (props: DroneCardProps) => {
 
   const [pilot, setPilot] = useState<Pilot | undefined>(undefined);
@@ -26,7 +31,7 @@ const DroneCard = (props: DroneCardProps) => {
   if (pilotLoading) return (<></>);
 
   return pilot
-    ? (
+    ? ( /** Pilot found */
       <div className="card card-compact bg-base-100 shadow-xl">
         <div className='card-body'>
           <p className='card-title'>{pilot.firstName} {pilot.lastName}</p>
@@ -45,7 +50,7 @@ const DroneCard = (props: DroneCardProps) => {
         </div>
       </div>
     )
-    : (
+    : ( /** Unknown pilot */
       <div className="card card-compact bg-base-100 shadow-xl">
         <div className='card-body'>
           <p className='card-title'>Unkown Pilot</p>

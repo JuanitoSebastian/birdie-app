@@ -5,6 +5,10 @@ interface DronesViewProps {
   drones: Drone[] | undefined;
 }
 
+/**
+ * A view displaying DroneCards using a responsive grid.
+ * @param props DronesViewProps including an array of Drone objects
+ */
 const DronesView = (props: DronesViewProps) => {
 
   if (!props.drones) return (<></>);

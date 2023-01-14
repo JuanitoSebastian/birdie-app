@@ -8,11 +8,13 @@ import DronesView from './components/DronesView';
 const App = () => {
   const [drones, setDrones] = useState<Drone[]>([]);
 
+  /** Poll drones who have violated the NFZ */
   useInterval(async () => {
     const fetchedDrones = await DroneService.getViolatingDrones();
     setDrones(fetchedDrones);
   }, 2000);
 
+  /** Initial fetch of drones */
   useEffect(() => {
     const fetchDronesFromApi = async () => {
       const fetchedDrones = await DroneService.getViolatingDrones();
