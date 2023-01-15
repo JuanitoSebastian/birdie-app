@@ -13,7 +13,7 @@ app.use(express.static('static'));
 const baseUrl = 'https://assignments.reaktor.com/birdnest';
 
 /**
- * Returns drones within 500m^2 of nest
+ * Returns drones within 100m^2 of nest
  */
 app.get('/api/drones', ((_request: Request, response: Response, _next: NextFunction) => {
   response.send(DroneService.getDrones());
