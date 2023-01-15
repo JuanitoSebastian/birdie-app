@@ -25,13 +25,14 @@ const App = () => {
   }, []);
 
   return (
-    <div className='flex flex-col h-screen justify-between'>
+    <div className='flex flex-col min-h-screen h-auto justify-between'>
       <div className='container mx-auto py-6'>
         <div className='flex flex-col gap-4 justify-start'>
           <h1 className='text-2xl font-bold'>NDZ Violations 🦅</h1>
           <DronesView drones={drones} />
         </div>
       </div>
+      <div className='flex-grow'></div>
       <Footer />
     </div>
   );

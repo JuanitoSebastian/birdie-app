@@ -5,6 +5,5 @@
 @layer base {
   body {
     @apply bg-stone-100;
-    @apply min-h-screen;
   }
 }
