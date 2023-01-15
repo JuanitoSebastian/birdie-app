@@ -25,7 +25,7 @@ const App = () => {
   }, []);
 
   return (
-    <div>
+    <div className='flex flex-col h-screen justify-between'>
       <div className='container mx-auto py-6'>
         <div className='flex flex-col gap-4 justify-start'>
           <h1 className='text-2xl font-bold'>NFZ Violations</h1>
