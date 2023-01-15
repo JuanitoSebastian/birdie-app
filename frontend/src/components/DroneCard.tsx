@@ -26,7 +26,7 @@ const DroneCard = (props: DroneCardProps) => {
     };
 
     fetchPilot();
-  }, [props]);
+  }, [props.drone.serialNumber]);
 
   if (pilotLoading) return (<></>);
 
