@@ -5,6 +5,10 @@ interface IconProps {
 
 type IconType = 'email' | 'phone';
 
+/**
+ * Display an icon. Icons from https://heroicons.com.
+ * @param props IconProps with given IconType (email and phone supported)
+ */
 const Icon = (props: IconProps) => {
 
   if (props.type === 'email') return (
