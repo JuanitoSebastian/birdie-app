@@ -1,6 +1,8 @@
 # Birdie
 This is my solution for the [Reaktor 2023 Developer Trainee pre-assignment](https://assignments.reaktor.com/birdnest/). It's a simple web app that shows the user a list of drone pilots who have violated a no-drone zone (NDZ) during the last 10 minutes. The application is a Typescript React + Express web app.
 
+[🏗️ Architecture](https://github.com/JuanitoSebastian/birdie-app/blob/main/docs/architecture.md)
+
 ![Screenshot of Birdie](https://raw.githubusercontent.com/JuanitoSebastian/birdie-app/main/docs/birdie_screen.jpg)
 
 ## Fly.io deployment
